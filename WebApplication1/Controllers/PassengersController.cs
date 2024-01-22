@@ -8,36 +8,59 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class PassengersController : ControllerBase
     {
+        private static List<Passenger> Passengers = new List<Passenger>()
+        {
+           new Passenger{Id=1, Name="AVITAL",CountryOrigion="israel",distnationCountry="new york",NumBags=1},
+             new Passenger{Id=2, Name="mimi",CountryOrigion="turkya",distnationCountry="budapest",NumBags=3}
+         };
+        private int CoundId = 3;
         // GET: api/<PassengersController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Passenger> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Passengers;
         }
 
         // GET api/<PassengersController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Passenger Get(int id)
         {
-            return "value";
+            Passenger foundPassenger = Passengers.Find(x => x.Id == id);
+            if (foundPassenger == null)
+            {
+                return null;
+            }
+            return foundPassenger;
         }
 
         // POST api/<PassengersController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Passenger Post([FromBody] Passenger P)
         {
+            Passengers.Add(new Passenger { Id = CoundId,Name=P.Name,CountryOrigion=P.CountryOrigion,distnationCountry=P.distnationCountry,NumBags=P.NumBags });
+            CoundId++;
+            return Passengers[Passengers.Count - 1];
         }
 
         // PUT api/<PassengersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public Passenger Put(int id, [FromBody] Passenger P)
         {
+            int index = Passengers.FindIndex((Passenger P) => { return P.Id == id; });
+            Passengers[index].Name = P.Name;
+            Passengers[index].CountryOrigion = P.CountryOrigion;
+            Passengers[index].distnationCountry = P.distnationCountry;
+            Passengers[index].NumBags = P.NumBags;
+
+            return P;
         }
 
         // DELETE api/<PassengersController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            int index = Passengers.FindIndex((Passenger P) => { return P.Id == id; });
+            Passengers.RemoveAt(index);
         }
     }
 }

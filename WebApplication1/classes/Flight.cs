@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.classes
+﻿namespace WebApplication1
 {
     public class Flight
     {
