@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Airport.Core.Services;
+using Airport.Service;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,17 +10,24 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class PassengersController : ControllerBase
     {
-        private static List<Passenger> Passengers = new List<Passenger>()
+        /* private static List<Passenger> Passengers = new List<Passenger>()
+         {
+            new Passenger{Id=1, Name="AVITAL",CountryOrigion="israel",distnationCountry="new york",NumBags=1},
+              new Passenger{Id=2, Name="mimi",CountryOrigion="turkya",distnationCountry="budapest",NumBags=3}
+          };
+         private int CoundId = 3;*/
+
+
+        private readonly IpassengerService _passengerService;
+        public PassengersController(IpassengerService passengerService)
         {
-           new Passenger{Id=1, Name="AVITAL",CountryOrigion="israel",distnationCountry="new york",NumBags=1},
-             new Passenger{Id=2, Name="mimi",CountryOrigion="turkya",distnationCountry="budapest",NumBags=3}
-         };
-        private int CoundId = 3;
+            _passengerService = passengerService;
+        }
         // GET: api/<PassengersController>
         [HttpGet]
         public IEnumerable<Passenger> Get()
         {
-            return Passengers;
+            return _passengerService.GettAll();
         }
 
         // GET api/<PassengersController>/5
