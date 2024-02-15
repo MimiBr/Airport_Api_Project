@@ -33,44 +33,48 @@ namespace WebApplication1.Controllers
 
         // GET api/<FlightsController>/5
         [HttpGet("{FlightsNum}")]
-        public Flight Get(int FlightsNum)
+        public Flight Get(int Id)
         {
-            Flight foundFlight = flightss.Find(x => x.FlightsNum ==FlightsNum);
-            if (foundFlight == null)
-            {
-                return null;
-            }
-            return foundFlight;
+            /*  Flight foundFlight = flightss.Find(x => x.Id ==Id);
+              if (foundFlight == null)
+              {
+                  return null;
+              }
+              return foundFlight;*/
+          return _flightService.GetById(Id);
         }
 
         // POST api/<FlightsController>
         [HttpPost]
-        public Flight Post([FromBody] Flight f)
+        public void Post([FromBody] Flight f)
         {
-            flightss.Add(new Flight {FlightsNum=CountFlight,Date=f.Date,LeavingTime=f.LeavingTime,ArrivalTime=f.ArrivalTime,TerminalNum=f.TerminalNum });
+           /* flightss.Add(new Flight {FlightsNum=CountFlight,Date=f.Date,LeavingTime=f.LeavingTime,ArrivalTime=f.ArrivalTime,TerminalNum=f.TerminalNum });
             CountFlight++;
-            return flightss[flightss.Count - 1];
+            return flightss[flightss.Count - 1];*/
+            _flightService.PostNewFlight(f);
         }
 
         // PUT api/<FlightsController>/5
         [HttpPut("{id}")]
-        public Flight Put(int FlightsNum, [FromBody] Flight f)
+        public void Put(int Id, [FromBody] Flight f)
         {
-            int index = flightss.FindIndex((Flight P) => { return f.FlightsNum == FlightsNum; });
+           /* int index = flightss.FindIndex((Flight P) => { return f.FlightsNum == FlightsNum; });
             flightss[index].Date= f.Date;
             flightss[index].LeavingTime= f.LeavingTime;
             flightss[index].ArrivalTime= f.ArrivalTime;
             flightss[index].TerminalNum= f.TerminalNum;
-            return f;
+            return f;*/
+           _flightService.PutFlight(Id, f);
 
         }
 
         // DELETE api/<FlightsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int FlightsNum)
+        public void Delete(int Id)
         {
-            int index = flightss.FindIndex((Flight f) => { return f.FlightsNum == FlightsNum; });
-            flightss.RemoveAt(index);
+           /* int index = flightss.FindIndex((Flight f) => { return f.FlightsNum == FlightsNum; });
+            flightss.RemoveAt(index);*/
+           _flightService.DeleteFlight(Id);
         }
     }
 }

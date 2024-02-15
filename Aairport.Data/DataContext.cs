@@ -15,7 +15,7 @@ namespace Aairport.Data
         public DataContext()
         {
             Flights = new List<Flight>
-            { new Flight { FlightsNum = 100, Date = new DateTime(), LeavingTime = new DateTime(), ArrivalTime = new DateTime(), TerminalNum = 50 }
+            { new Flight { Id = 100, Date = new DateTime(), LeavingTime = new DateTime(), ArrivalTime = new DateTime(), TerminalNum = 50 }
             };
             Passengers = new List<Passenger>
             {
@@ -28,5 +28,19 @@ namespace Aairport.Data
 
         }
 
+        internal void Remove(Pilot pilot)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void Remove(Passenger passenger)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void Remove(Flight flight)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

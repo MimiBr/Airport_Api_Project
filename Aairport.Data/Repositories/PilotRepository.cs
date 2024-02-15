@@ -10,14 +10,27 @@ namespace Aairport.Data.Repositories
 {
     public class PilotRepository:IpilotRepository
     {
-        private readonly DataContext _Context;
+        private readonly DataContext _context;
         public PilotRepository(DataContext context)
         {
-            _Context = context;
+            _context = context;
         }
         public List<Pilot> GetList()
         {
-            return _Context.Pilots;
+            return _context.Pilots;
+        }
+        public void PostPilot(Pilot p)
+        {
+            _context.Pilots.Add(p);
+
+        }
+        public void UpdatePilot(int id, Pilot p)
+        {
+            _context.Pilots[id] = p;
+        }
+        public void RemovePilot(int index)
+        {
+            _context.Remove(_context.Pilots[index]);
         }
     }
 }

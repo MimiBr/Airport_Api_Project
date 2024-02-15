@@ -11,14 +11,27 @@ namespace Aairport.Data.Repositories
    
     public class PassengerRepository:IpassengerRepository
     {
-        private readonly DataContext _Context;
+        private readonly DataContext _context;
         public PassengerRepository(DataContext context)
         {
-            _Context = context;
+            _context = context;
         }
         public List<Passenger> GetList()
         {
-            return _Context.Passengers;
+            return _context.Passengers;
+        }
+        public void PostPassenger(Passenger p)
+        {
+            _context.Passengers.Add(p);
+
+        }
+        public void UpdatePassenger(int id, Passenger p)
+        {
+            _context.Passengers[id] = p;
+        }
+        public void RemovePassenger(int index)
+        {
+            _context.Remove(_context.Passengers[index]);
         }
     }
 }

@@ -34,42 +34,45 @@ namespace WebApplication1.Controllers
         [HttpGet("{id}")]
         public Pilot Get(int id)
         {
-            Pilot foundPILOT=Pilots.Find(x => x.Id==id);
+         /*   Pilot foundPILOT=Pilots.Find(x => x.Id==id);
             if (foundPILOT == null)
             {
                 return null;
             }
-            return foundPILOT;
+            return foundPILOT;*/
+         return _pilotService.GetById(id);
         }
 
         // POST api/<PilotController>
         [HttpPost]
-        public Pilot Post([FromBody] Pilot p)
+        public void Post([FromBody] Pilot p)
         {
-            Pilots.Add(new Pilot { Id = CountID, Name = p.Name, NumWorker = p.NumWorker, Vettek = p.Vettek, Company = p.Company });
+         /*   Pilots.Add(new Pilot { Id = CountID, Name = p.Name, NumWorker = p.NumWorker, Vettek = p.Vettek, Company = p.Company });
             CountID++;
-            return Pilots[Pilots.Count - 1];
+            return Pilots[Pilots.Count - 1];*/
+         _pilotService.PostNewPilot(p);
         }
 
         // PUT api/<PilotController>/5
         [HttpPut("{id}")]
-        public Pilot Put(int id, [FromBody] Pilot PP)
+        public void Put(int id, [FromBody] Pilot PP)
         {
-            int index = Pilots.FindIndex((Pilot P) => { return P.Id == id; });
+            /*int index = Pilots.FindIndex((Pilot P) => { return P.Id == id; });
             Pilots[index].Name= PP.Name;
             Pilots[index].NumWorker= PP.NumWorker;
             Pilots[index].Vettek= PP.Vettek;
             Pilots[index].Company= PP.Company;
-            return PP;
-
+            return PP;*/
+            _pilotService.PutPilot(id, PP);
         }
 
         // DELETE api/<PilotController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            int index = Pilots.FindIndex((Pilot P) => { return P.Id == id; });
-            Pilots.RemoveAt(index);
+            /*int index = Pilots.FindIndex((Pilot P) => { return P.Id == id; });
+            Pilots.RemoveAt(index);*/
+            _pilotService.DeletePilot(id);
 
         }
     }

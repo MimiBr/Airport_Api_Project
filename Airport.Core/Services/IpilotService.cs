@@ -9,6 +9,10 @@ namespace Airport.Core.Services
 {
     public interface IpilotService
     {
-        List<Pilot> GettAll();
+      public List<Pilot> GettAll();
+        Pilot GetById(int Id);
+        public void PostNewPilot(Pilot p);
+        public void PutPilot(int id, Pilot p);
+        public void DeletePilot(int id);
     }
 }

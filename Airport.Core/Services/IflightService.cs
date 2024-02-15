@@ -9,6 +9,10 @@ namespace Airport.Core.Services
 {
     public interface IflightService
     {
-        List<Flight> GettAll();
+       public List<Flight> GettAll();
+        Flight GetById(int Id);
+        public void PostNewFlight(Flight f);
+        public void PutFlight(int id, Flight f);
+        public void DeleteFlight(int id);
     }
 }

@@ -13,6 +13,11 @@ namespace Airport.Service
     public class PassengersService:IpassengerService
     {
         private readonly IpassengerRepository _passengerRepository;
+        private int countPassenger;
+        private Passenger passenger;
+
+        public int CoundId { get; private set; }
+
         public PassengersService(IpassengerRepository passengerRepository)
         {
             _passengerRepository = passengerRepository;
@@ -21,6 +26,43 @@ namespace Airport.Service
         public List<Passenger> GettAll()
         {
             return _passengerRepository.GetList();
+        }
+        public Passenger GetById(int Id)
+        {
+            Passenger foundPassenger = _passengerRepository.GetList().Find(x => x.Id == Id);
+            if (foundPassenger == null)
+            {
+                return null;
+            }
+            return foundPassenger;
+        }
+        public void PostNewPassenger(Passenger p)
+        {
+            _passengerRepository.PostPassenger(p);
+            CoundId++;
+
+        }
+        public void PutPassenger(int id, Passenger p)
+        {
+            int index = _passengerRepository.GetList().FindIndex(x => x.Id == id);
+            if (index != -1)
+            {
+                Passenger passenger = _passengerRepository.GetList()[index];
+                passenger.Name = p.Name;
+                passenger.NumBags = p.NumBags;
+                passenger.CountryOrigion=p.CountryOrigion;
+                passenger.distnationCountry = p.distnationCountry;
+            }
+            _passengerRepository.UpdatePassenger(index, passenger);
+
+        }
+        public void DeletePassenger(int id)
+        {
+            int index = _passengerRepository.GetList().FindIndex(x => x.Id == id);
+            if (index != -1)
+            {
+                _passengerRepository.RemovePassenger(index);
+            }
         }
     }
 }

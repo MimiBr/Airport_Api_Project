@@ -34,42 +34,47 @@ namespace WebApplication1.Controllers
         [HttpGet("{id}")]
         public Passenger Get(int id)
         {
-            Passenger foundPassenger = Passengers.Find(x => x.Id == id);
+           /* Passenger foundPassenger = Passengers.Find(x => x.Id == id);
             if (foundPassenger == null)
             {
                 return null;
             }
-            return foundPassenger;
+            return foundPassenger;*/
+           return _passengerService.GetById(id);
         }
 
         // POST api/<PassengersController>
         [HttpPost]
-        public Passenger Post([FromBody] Passenger P)
+        public void Post([FromBody] Passenger P)
         {
-            Passengers.Add(new Passenger { Id = CoundId,Name=P.Name,CountryOrigion=P.CountryOrigion,distnationCountry=P.distnationCountry,NumBags=P.NumBags });
+           /* Passengers.Add(new Passenger { Id = CoundId,Name=P.Name,CountryOrigion=P.CountryOrigion,distnationCountry=P.distnationCountry,NumBags=P.NumBags });
             CoundId++;
-            return Passengers[Passengers.Count - 1];
+            return Passengers[Passengers.Count - 1];*/
+           _passengerService.PostNewPassenger(P);
         }
 
         // PUT api/<PassengersController>/5
         [HttpPut("{id}")]
-        public Passenger Put(int id, [FromBody] Passenger P)
+        public void Put(int id, [FromBody] Passenger P)
         {
-            int index = Passengers.FindIndex((Passenger P) => { return P.Id == id; });
+          /*  int index = Passengers.FindIndex((Passenger P) => { return P.Id == id; });
             Passengers[index].Name = P.Name;
             Passengers[index].CountryOrigion = P.CountryOrigion;
             Passengers[index].distnationCountry = P.distnationCountry;
             Passengers[index].NumBags = P.NumBags;
 
-            return P;
+            return P;*/
+          _passengerService.PutPassenger(id, P);
         }
 
         // DELETE api/<PassengersController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            int index = Passengers.FindIndex((Passenger P) => { return P.Id == id; });
-            Passengers.RemoveAt(index);
+           /* int index = Passengers.FindIndex((Passenger P) => { return P.Id == id; });
+            Passengers.RemoveAt(index);*/
+           _passengerService.DeletePassenger(id);
         }
+
     }
 }
