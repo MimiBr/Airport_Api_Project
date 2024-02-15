@@ -28,19 +28,5 @@ namespace Aairport.Data
 
         }
 
-        internal void Remove(Pilot pilot)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void Remove(Passenger passenger)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void Remove(Flight flight)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

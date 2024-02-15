@@ -24,13 +24,16 @@ namespace Aairport.Data.Repositories
             _context.Flights.Add(f);
              
         }
-        public void UpdateFlight(int id,Flight f)
+        public void UpdateFlight(int index,Flight f)
         {
-            _context.Flights[id] = f;
+            _context.Flights[index].Date = f.Date;
+            _context.Flights[index].ArrivalTime = f.ArrivalTime;
+            _context.Flights[index].LeavingTime = f.LeavingTime;
+            _context.Flights[index].TerminalNum = f.TerminalNum;
         }
         public void RemoveFlight(int index)
         {
-            _context.Remove(_context.Flights[index]);
+            _context.Flights.Remove(_context.Flights[index]);
         }
     }
 }
