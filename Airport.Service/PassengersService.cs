@@ -47,13 +47,10 @@ namespace Airport.Service
             int index = _passengerRepository.GetList().FindIndex(x => x.Id == id);
             if (index != -1)
             {
-                Passenger passenger = _passengerRepository.GetList()[index];
-                passenger.Name = p.Name;
-                passenger.NumBags = p.NumBags;
-                passenger.CountryOrigion=p.CountryOrigion;
-                passenger.distnationCountry = p.distnationCountry;
+                _passengerRepository.UpdatePassenger(index, passenger);
+
+              
             }
-            _passengerRepository.UpdatePassenger(index, passenger);
 
         }
         public void DeletePassenger(int id)

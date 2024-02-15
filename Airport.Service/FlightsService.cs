@@ -45,13 +45,10 @@ namespace Airport.Service
             int index =_flightRepository.GetList().FindIndex(x => x.Id == id);
             if (index != -1)
             {
-                Flight flight = _flightRepository.GetList()[index];
-                flight.Date = f.Date;
-                flight.ArrivalTime = f.ArrivalTime;
-                flight.LeavingTime = f.LeavingTime;
-                flight.TerminalNum= f.TerminalNum;
+                _flightRepository.UpdateFlight(id, flight);
+
+               
             }
-            _flightRepository.UpdateFlight(id, flight);
 
         }
         public void DeleteFlight(int id)

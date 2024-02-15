@@ -27,7 +27,7 @@ builder.Services.AddSingleton<DataContext>();
 
 builder.Services.AddScoped<IpassengerService, PassengersService>();
 builder.Services.AddScoped<IpassengerRepository, PassengerRepository>();
-//builder.Services.AddSingleton<DataContext>();
+////builder.Services.AddSingleton<DataContext>();
 
 builder.Services.AddScoped<IpilotService, PilotsService>();
 builder.Services.AddScoped<IpilotRepository, PilotRepository>();

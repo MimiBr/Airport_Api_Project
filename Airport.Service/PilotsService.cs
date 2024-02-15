@@ -12,24 +12,24 @@ namespace Airport.Service
 {
     public class PilotsService:IpilotService
     {
-        private readonly PilotRepository _pilotRepository;
+        private readonly IpilotRepository _ipilotRepository;
         private int countId;
         private int CountID;
         private Pilot pilot;
 
-        public PilotsService(PilotRepository pilotRepository)
+        public PilotsService(IpilotRepository ipilotRepository)
         {
-            _pilotRepository = pilotRepository;
+            _ipilotRepository = ipilotRepository;
         }
 
         public List<Pilot> GettAll()
         {
-            return _pilotRepository.GetList();
+            return _ipilotRepository.GetList();
         }
         public Pilot GetById(int Id)
         {
 
-            Pilot foundPilot = _pilotRepository.GetList().Find(x => x.Id == Id);
+            Pilot foundPilot = _ipilotRepository.GetList().Find(x => x.Id == Id);
             if (foundPilot == null)
             {
                 return null;
@@ -38,30 +38,28 @@ namespace Airport.Service
         }
         public void PostNewPilot(Pilot p)
         {
-            _pilotRepository.PostPilot(p);
+            _ipilotRepository.PostPilot(p);
             CountID++;
 
         }
         public void PutPilot(int id, Pilot p)
         {
-            int index = _pilotRepository.GetList().FindIndex(x => x.Id == id);
+            int index = _ipilotRepository.GetList().FindIndex(x => x.Id == id);
             if (index != -1)
             {
-                Pilot pilot = _pilotRepository.GetList()[index];
-              pilot.Vettek = p.Vettek;
-                pilot.Name = p.Name;
-                pilot.NumWorker=p.NumWorker;
-                pilot.Company= p.Company;
+                _ipilotRepository.UpdatePilot(index, p);
+
+           
             }
-            _pilotRepository.UpdatePilot(index, pilot);
+          
 
         }
         public void DeletePilot(int id)
         {
-            int index = _pilotRepository.GetList().FindIndex(x => x.Id == id);
+            int index = _ipilotRepository.GetList().FindIndex(x => x.Id == id);
             if (index != -1)
             {
-                _pilotRepository.RemovePilot(index);
+                _ipilotRepository.RemovePilot(index);
             }
         }
     }
