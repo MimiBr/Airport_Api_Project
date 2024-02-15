@@ -18,7 +18,7 @@ namespace Aairport.Data.Repositories
         }
         public List<Passenger> GetList()
         {
-            return _context.Passengers;
+            return _context.Passengers.ToList();
         }
         public void PostPassenger(Passenger p)
         {
@@ -27,15 +27,15 @@ namespace Aairport.Data.Repositories
         }
         public void UpdatePassenger(int index, Passenger p)
         {
-            _context.Passengers[index].Name= p.Name;
-            _context.Passengers[index].NumBags = p.NumBags;
-            _context.Passengers[index].CountryOrigion = p.CountryOrigion;
-            _context.Passengers[index].distnationCountry = p.distnationCountry;
+            _context.Passengers.ToList()[index].Name= p.Name;
+            _context.Passengers.ToList()[index].NumBags = p.NumBags;
+            _context.Passengers.ToList()[index].CountryOrigion = p.CountryOrigion;
+            _context.Passengers.ToList()[index].distnationCountry = p.distnationCountry;
 
         }
         public void RemovePassenger(int index)
         {
-            _context.Passengers.Remove(_context.Passengers[index]);
+            _context.Passengers.Remove(_context.Passengers.ToList()[index]);
         }
     }
 }

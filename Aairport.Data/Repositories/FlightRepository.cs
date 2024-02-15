@@ -17,7 +17,7 @@ namespace Aairport.Data.Repositories
         }
         public List<Flight> GetList()
         {
-            return _context.Flights;
+            return _context.Flights.ToList();
         }
        public void PostFlight(Flight f)
         {
@@ -26,14 +26,14 @@ namespace Aairport.Data.Repositories
         }
         public void UpdateFlight(int index,Flight f)
         {
-            _context.Flights[index].Date = f.Date;
-            _context.Flights[index].ArrivalTime = f.ArrivalTime;
-            _context.Flights[index].LeavingTime = f.LeavingTime;
-            _context.Flights[index].TerminalNum = f.TerminalNum;
+            _context.Flights.ToList()[index].Date = f.Date;
+            _context.Flights.ToList()[index].ArrivalTime = f.ArrivalTime;
+            _context.Flights.ToList()[index].LeavingTime = f.LeavingTime;
+            _context.Flights.ToList()[index].TerminalNum = f.TerminalNum;
         }
         public void RemoveFlight(int index)
         {
-            _context.Flights.Remove(_context.Flights[index]);
+            _context.Flights.Remove(_context.Flights.ToList()[index]);
         }
     }
 }

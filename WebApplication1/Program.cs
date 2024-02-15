@@ -23,7 +23,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IflightService , FlightsService>();
 builder.Services.AddScoped<IflightRepository, FlightRepository>();
-builder.Services.AddSingleton<DataContext>();
+builder.Services.AddDbContext<DataContext>();
+//builder.Services.AddSingleton<DataContext>();
 
 builder.Services.AddScoped<IpassengerService, PassengersService>();
 builder.Services.AddScoped<IpassengerRepository, PassengerRepository>();
@@ -31,6 +32,7 @@ builder.Services.AddScoped<IpassengerRepository, PassengerRepository>();
 
 builder.Services.AddScoped<IpilotService, PilotsService>();
 builder.Services.AddScoped<IpilotRepository, PilotRepository>();
+
 //builder.Services.AddSingleton<DataContext>();
 
 

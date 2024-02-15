@@ -17,7 +17,7 @@ namespace Aairport.Data.Repositories
         }
         public List<Pilot> GetList()
         {
-            return _context.Pilots;
+            return _context.Pilots.ToList();
         }
         public void PostPilot(Pilot p)
         {
@@ -26,14 +26,14 @@ namespace Aairport.Data.Repositories
         }
         public void UpdatePilot(int index, Pilot p)
         {
-            _context.Pilots[index].Vettek = p.Vettek;
-            _context.Pilots[index].Name = p.Name;
-            _context.Pilots[index].NumWorker = p.NumWorker;
-            _context.Pilots[index].Company = p.Company;
+            _context.Pilots.ToList()[index].Vettek = p.Vettek;
+            _context.Pilots.ToList()[index].Name = p.Name;
+            _context.Pilots.ToList()[index].NumWorker = p.NumWorker;
+            _context.Pilots.ToList()[index].Company = p.Company;
          }
         public void RemovePilot(int index)
         {
-            _context.Pilots.Remove(_context.Pilots[index]);
+            _context.Pilots.Remove(_context.Pilots.ToList()[index]);
         }
     }
 }

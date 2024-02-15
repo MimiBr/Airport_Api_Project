@@ -11,7 +11,7 @@ namespace Airport.Core.Repositories
     {
         List<Passenger> GetList();
         public void PostPassenger(Passenger p);
-        public void UpdatePassenger(int id, Passenger p);
+        public void UpdatePassenger(int index, Passenger p);
         public void RemovePassenger(int index);
     }
 }

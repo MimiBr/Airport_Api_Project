@@ -11,7 +11,8 @@ namespace Airport.Core.Repositories
     {
         List<Pilot> GetList();
         public void PostPilot(Pilot p);
-        public void UpdatePilot(int id, Pilot p);
+        public void UpdatePilot(int index, Pilot p);
+
         public void RemovePilot(int index);
     }
 }

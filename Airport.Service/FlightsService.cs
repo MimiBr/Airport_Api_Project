@@ -45,7 +45,7 @@ namespace Airport.Service
             int index =_flightRepository.GetList().FindIndex(x => x.Id == id);
             if (index != -1)
             {
-                _flightRepository.UpdateFlight(id, flight);
+                _flightRepository.UpdateFlight(index, f);
 
                
             }

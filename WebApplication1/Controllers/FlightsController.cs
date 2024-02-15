@@ -32,7 +32,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET api/<FlightsController>/5
-        [HttpGet("{FlightsNum}")]
+        [HttpGet("{id}")]
         public Flight Get(int Id)
         {
             /*  Flight foundFlight = flightss.Find(x => x.Id ==Id);
