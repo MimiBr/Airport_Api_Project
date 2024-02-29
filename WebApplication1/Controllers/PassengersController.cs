@@ -1,6 +1,7 @@
 ﻿using Airport.Core.Services;
 using Airport.Service;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication1.models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -45,26 +46,29 @@ namespace WebApplication1.Controllers
 
         // POST api/<PassengersController>
         [HttpPost]
-        public void Post([FromBody] Passenger P)
+        public void Post([FromBody] PassengerPostModel P)
         {
            /* Passengers.Add(new Passenger { Id = CoundId,Name=P.Name,CountryOrigion=P.CountryOrigion,distnationCountry=P.distnationCountry,NumBags=P.NumBags });
             CoundId++;
             return Passengers[Passengers.Count - 1];*/
-           _passengerService.PostNewPassenger(P);
+           var passengerToAdd=new Passenger { Name=P.Name,CountryOrigion=P.CountryOrigion,distnationCountry=P.distnationCountry,NumBags=P.NumBags,IdFlight=P.IdFlight};
+           _passengerService.PostNewPassenger(passengerToAdd);
         }
 
         // PUT api/<PassengersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Passenger P)
+        public void Put(int id, [FromBody] PassengerPostModel P)
         {
-          /*  int index = Passengers.FindIndex((Passenger P) => { return P.Id == id; });
-            Passengers[index].Name = P.Name;
-            Passengers[index].CountryOrigion = P.CountryOrigion;
-            Passengers[index].distnationCountry = P.distnationCountry;
-            Passengers[index].NumBags = P.NumBags;
+            /*  int index = Passengers.FindIndex((Passenger P) => { return P.Id == id; });
+              Passengers[index].Name = P.Name;
+              Passengers[index].CountryOrigion = P.CountryOrigion;
+              Passengers[index].distnationCountry = P.distnationCountry;
+              Passengers[index].NumBags = P.NumBags;
 
-            return P;*/
-          _passengerService.PutPassenger(id, P);
+              return P;*/
+            var passengerToAdd = new Passenger { Name = P.Name, CountryOrigion = P.CountryOrigion, distnationCountry = P.distnationCountry, NumBags = P.NumBags, IdFlight = P.IdFlight };
+
+            _passengerService.PutPassenger(id, passengerToAdd);
         }
 
         // DELETE api/<PassengersController>/5

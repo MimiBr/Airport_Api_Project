@@ -1,4 +1,5 @@
 ﻿using Airport.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using WebApplication1;
 
 namespace Aairport.Data.Repositories
 {
-    public class FlightRepository: IflightRepository
+    public class FlightRepository : IflightRepository
     {
         private readonly DataContext _context;
         public FlightRepository(DataContext context)
@@ -17,23 +18,28 @@ namespace Aairport.Data.Repositories
         }
         public List<Flight> GetList()
         {
-            return _context.Flights.ToList();
+            return _context.Flights.Include((p) => p.Passengers).ToList();
         }
-       public void PostFlight(Flight f)
+        public void PostFlight(Flight f)
         {
             _context.Flights.Add(f);
-             
+            _context.SaveChanges();
+
         }
-        public void UpdateFlight(int index,Flight f)
+        public void UpdateFlight(int index, Flight f)
         {
             _context.Flights.ToList()[index].Date = f.Date;
             _context.Flights.ToList()[index].ArrivalTime = f.ArrivalTime;
             _context.Flights.ToList()[index].LeavingTime = f.LeavingTime;
             _context.Flights.ToList()[index].TerminalNum = f.TerminalNum;
+            _context.SaveChanges();
+
         }
         public void RemoveFlight(int index)
         {
             _context.Flights.Remove(_context.Flights.ToList()[index]);
+            _context.SaveChanges();
+
         }
     }
 }

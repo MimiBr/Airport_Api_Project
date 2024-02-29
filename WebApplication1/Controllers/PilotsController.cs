@@ -1,6 +1,7 @@
 ﻿using Airport.Core.Services;
 using Airport.Service;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication1.models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -45,17 +46,18 @@ namespace WebApplication1.Controllers
 
         // POST api/<PilotController>
         [HttpPost]
-        public void Post([FromBody] Pilot p)
+        public void Post([FromBody] PilotPostModel p)
         {
          /*   Pilots.Add(new Pilot { Id = CountID, Name = p.Name, NumWorker = p.NumWorker, Vettek = p.Vettek, Company = p.Company });
             CountID++;
             return Pilots[Pilots.Count - 1];*/
-         _pilotService.PostNewPilot(p);
+         var pilotToAdd=new Pilot { Name=p.Name,NumWorker=p.NumWorker,Vettek=p.Vettek,Company=p.Company};
+         _pilotService.PostNewPilot(pilotToAdd);
         }
 
         // PUT api/<PilotController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Pilot PP)
+        public void Put(int id, [FromBody] PilotPostModel p)
         {
             /*int index = Pilots.FindIndex((Pilot P) => { return P.Id == id; });
             Pilots[index].Name= PP.Name;
@@ -63,7 +65,9 @@ namespace WebApplication1.Controllers
             Pilots[index].Vettek= PP.Vettek;
             Pilots[index].Company= PP.Company;
             return PP;*/
-            _pilotService.PutPilot(id, PP);
+            var pilotToAdd = new Pilot { Name = p.Name, NumWorker = p.NumWorker, Vettek = p.Vettek, Company = p.Company };
+
+            _pilotService.PutPilot(id, pilotToAdd);
         }
 
         // DELETE api/<PilotController>/5

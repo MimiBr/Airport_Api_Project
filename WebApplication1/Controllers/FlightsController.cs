@@ -1,6 +1,7 @@
 ﻿using Airport.Core.Services;
 using Airport.Service;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication1.models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,7 +34,7 @@ namespace WebApplication1.Controllers
 
         // GET api/<FlightsController>/5
         [HttpGet("{id}")]
-        public Flight Get(int Id)
+        public Flight Get(int id)
         {
             /*  Flight foundFlight = flightss.Find(x => x.Id ==Id);
               if (foundFlight == null)
@@ -41,30 +42,33 @@ namespace WebApplication1.Controllers
                   return null;
               }
               return foundFlight;*/
-          return _flightService.GetById(Id);
+          return _flightService.GetById(id);
         }
 
         // POST api/<FlightsController>
         [HttpPost]
-        public void Post([FromBody] Flight f)
+        public void Post([FromBody] FlightPostModel f)
         {
            /* flightss.Add(new Flight {FlightsNum=CountFlight,Date=f.Date,LeavingTime=f.LeavingTime,ArrivalTime=f.ArrivalTime,TerminalNum=f.TerminalNum });
             CountFlight++;
             return flightss[flightss.Count - 1];*/
-            _flightService.PostNewFlight(f);
+           var  flightToAdd=new Flight { Date = f.Date,LeavingTime=f.LeavingTime,ArrivalTime=f.ArrivalTime,TerminalNum=f.TerminalNum};
+            _flightService.PostNewFlight(flightToAdd);
         }
 
         // PUT api/<FlightsController>/5
         [HttpPut("{id}")]
-        public void Put(int Id, [FromBody] Flight f)
+        public void Put(int id, [FromBody] FlightPostModel f)
         {
-           /* int index = flightss.FindIndex((Flight P) => { return f.FlightsNum == FlightsNum; });
-            flightss[index].Date= f.Date;
-            flightss[index].LeavingTime= f.LeavingTime;
-            flightss[index].ArrivalTime= f.ArrivalTime;
-            flightss[index].TerminalNum= f.TerminalNum;
-            return f;*/
-           _flightService.PutFlight(Id, f);
+            /* int index = flightss.FindIndex((Flight P) => { return f.FlightsNum == FlightsNum; });
+             flightss[index].Date= f.Date;
+             flightss[index].LeavingTime= f.LeavingTime;
+             flightss[index].ArrivalTime= f.ArrivalTime;
+             flightss[index].TerminalNum= f.TerminalNum;
+             return f;*/
+            var flightToAdd = new Flight { Date = f.Date, LeavingTime = f.LeavingTime, ArrivalTime = f.ArrivalTime, TerminalNum = f.TerminalNum };
+
+            _flightService.PutFlight(id, flightToAdd);
 
         }
 

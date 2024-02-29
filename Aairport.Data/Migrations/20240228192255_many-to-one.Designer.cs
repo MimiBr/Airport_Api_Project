@@ -4,6 +4,7 @@ using Aairport.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aairport.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240228192255_many-to-one")]
+    partial class manytoone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +23,6 @@ namespace Aairport.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("FlightPilot", b =>
-                {
-                    b.Property<int>("FlightsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PilotsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FlightsId", "PilotsId");
-
-                    b.HasIndex("PilotsId");
-
-                    b.ToTable("FlightPilot");
-                });
 
             modelBuilder.Entity("WebApplication1.Flight", b =>
                 {
@@ -88,12 +75,7 @@ namespace Aairport.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("flightId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("flightId");
 
                     b.ToTable("Passengers");
                 });
@@ -123,37 +105,6 @@ namespace Aairport.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pilots");
-                });
-
-            modelBuilder.Entity("FlightPilot", b =>
-                {
-                    b.HasOne("WebApplication1.Flight", null)
-                        .WithMany()
-                        .HasForeignKey("FlightsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication1.Pilot", null)
-                        .WithMany()
-                        .HasForeignKey("PilotsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WebApplication1.Passenger", b =>
-                {
-                    b.HasOne("WebApplication1.Flight", "flight")
-                        .WithMany("Passengers")
-                        .HasForeignKey("flightId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("flight");
-                });
-
-            modelBuilder.Entity("WebApplication1.Flight", b =>
-                {
-                    b.Navigation("Passengers");
                 });
 #pragma warning restore 612, 618
         }

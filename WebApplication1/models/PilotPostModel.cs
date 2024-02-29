@@ -1,13 +1,10 @@
-﻿namespace WebApplication1
+﻿namespace WebApplication1.models
 {
-    public class Pilot
+    public class PilotPostModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int NumWorker { get; set; }
         public int Vettek { get; set; }
         public string Company { get; set; }
-        //many to many
-        public List<Flight> Flights { get; set; }
     }
 }
