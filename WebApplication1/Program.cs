@@ -1,5 +1,6 @@
 using Aairport.Data;
 using Aairport.Data.Repositories;
+using Airport.Core;
 using Airport.Core.Repositories;
 using Airport.Core.Services;
 using Airport.Service;
@@ -40,6 +41,7 @@ builder.Services.AddScoped<IpilotService, PilotsService>();
 builder.Services.AddScoped<IpilotRepository, PilotRepository>();
 
 //builder.Services.AddSingleton<DataContext>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 
 

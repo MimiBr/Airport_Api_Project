@@ -11,8 +11,8 @@ namespace Airport.Core.Services
     {
        public List<Flight> GettAll();
         Flight GetById(int Id);
-        public void PostNewFlight(Flight f);
+        public void PostFlight(Flight f);
         public void PutFlight(int id, Flight f);
-        public void DeleteFlight(int id);
+        public void DeleteFlight(int Id);
     }
 }

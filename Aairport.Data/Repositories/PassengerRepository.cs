@@ -21,26 +21,26 @@ namespace Aairport.Data.Repositories
         {
             return _context.Passengers.Include(p => p.flight).ToList();  
         }
-        public void PostPassenger(Passenger p)
+        public async void PostPassengerAsync(Passenger p)
         {
             _context.Passengers.Add(p);
-            _context.SaveChanges();
+         await  _context.SaveChangesAsync();
 
 
         }
-        public void UpdatePassenger(int index, Passenger p)
+        public async void UpdatePassengerAsync(int index, Passenger p)
         {
             _context.Passengers.ToList()[index].Name= p.Name;
             _context.Passengers.ToList()[index].NumBags = p.NumBags;
             _context.Passengers.ToList()[index].CountryOrigion = p.CountryOrigion;
             _context.Passengers.ToList()[index].distnationCountry = p.distnationCountry;
-            _context.SaveChanges();
+          await _context.SaveChangesAsync();
 
         }
-        public void RemovePassenger(int index)
+        public async void RemovePassengerAsync(int index)
         {
             _context.Passengers.Remove(_context.Passengers.ToList()[index]);
-            _context.SaveChanges();
+          await _context.SaveChangesAsync();
 
         }
     }

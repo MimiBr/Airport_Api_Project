@@ -10,8 +10,8 @@ namespace Airport.Core.Repositories
     public interface IpassengerRepository
     {
         List<Passenger> GetList();
-        public void PostPassenger(Passenger p);
-        public void UpdatePassenger(int index, Passenger p);
-        public void RemovePassenger(int index);
+        public void PostPassengerAsync(Passenger p);
+        public void UpdatePassengerAsync(int index, Passenger p);
+        public void RemovePassengerAsync(int index);
     }
 }

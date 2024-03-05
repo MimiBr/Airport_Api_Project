@@ -1,5 +1,7 @@
-﻿using Airport.Core.Services;
+﻿using Airport.Core.DTOs;
+using Airport.Core.Services;
 using Airport.Service;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.models;
 
@@ -11,62 +13,48 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class PassengersController : ControllerBase
     {
-        /* private static List<Passenger> Passengers = new List<Passenger>()
-         {
-            new Passenger{Id=1, Name="AVITAL",CountryOrigion="israel",distnationCountry="new york",NumBags=1},
-              new Passenger{Id=2, Name="mimi",CountryOrigion="turkya",distnationCountry="budapest",NumBags=3}
-          };
-         private int CoundId = 3;*/
 
 
+        private readonly IMapper _mapper;
         private readonly IpassengerService _passengerService;
-        public PassengersController(IpassengerService passengerService)
+        public PassengersController(IpassengerService passengerService, IMapper mapper)
         {
+            _mapper = mapper;
             _passengerService = passengerService;
         }
         // GET: api/<PassengersController>
         [HttpGet]
-        public IEnumerable<Passenger> Get()
+        public ActionResult<Passenger> Get()
         {
-            return _passengerService.GettAll();
+            var list=_passengerService.GettAll();
+            var PassengerList=_mapper.Map<IEnumerable<PassengerDto>>(list);
+            return Ok(PassengerList);   
         }
 
         // GET api/<PassengersController>/5
         [HttpGet("{id}")]
-        public Passenger Get(int id)
+        public ActionResult Get(int id)
         {
-           /* Passenger foundPassenger = Passengers.Find(x => x.Id == id);
-            if (foundPassenger == null)
-            {
-                return null;
-            }
-            return foundPassenger;*/
-           return _passengerService.GetById(id);
+         var passenger= _passengerService.GetById(id);
+            var newPassenger=_mapper.Map<PassengerDto>(passenger);
+            return Ok(newPassenger);
         }
 
         // POST api/<PassengersController>
         [HttpPost]
-        public void Post([FromBody] PassengerPostModel P)
+        public void Post([FromBody] PassengerDto P)
         {
-           /* Passengers.Add(new Passenger { Id = CoundId,Name=P.Name,CountryOrigion=P.CountryOrigion,distnationCountry=P.distnationCountry,NumBags=P.NumBags });
-            CoundId++;
-            return Passengers[Passengers.Count - 1];*/
-           var passengerToAdd=new Passenger { Name=P.Name,CountryOrigion=P.CountryOrigion,distnationCountry=P.distnationCountry,NumBags=P.NumBags,IdFlight=P.IdFlight};
+
+            var passengerToAdd = _mapper.Map<Passenger>(P);
            _passengerService.PostNewPassenger(passengerToAdd);
         }
 
         // PUT api/<PassengersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] PassengerPostModel P)
+        public void Put(int id, [FromBody] PassengerDto P)
         {
-            /*  int index = Passengers.FindIndex((Passenger P) => { return P.Id == id; });
-              Passengers[index].Name = P.Name;
-              Passengers[index].CountryOrigion = P.CountryOrigion;
-              Passengers[index].distnationCountry = P.distnationCountry;
-              Passengers[index].NumBags = P.NumBags;
 
-              return P;*/
-            var passengerToAdd = new Passenger { Name = P.Name, CountryOrigion = P.CountryOrigion, distnationCountry = P.distnationCountry, NumBags = P.NumBags, IdFlight = P.IdFlight };
+            var passengerToAdd = _mapper.Map<Passenger>(P);
 
             _passengerService.PutPassenger(id, passengerToAdd);
         }

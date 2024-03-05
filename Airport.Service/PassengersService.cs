@@ -38,7 +38,7 @@ namespace Airport.Service
         }
         public void PostNewPassenger(Passenger p)
         {
-            _passengerRepository.PostPassenger(p);
+            _passengerRepository.PostPassengerAsync(p);
             CoundId++;
 
         }
@@ -47,7 +47,7 @@ namespace Airport.Service
             int index = _passengerRepository.GetList().FindIndex(x => x.Id == id);
             if (index != -1)
             {
-                _passengerRepository.UpdatePassenger(index, p);
+                _passengerRepository.UpdatePassengerAsync(index, p);
 
               
             }
@@ -58,7 +58,7 @@ namespace Airport.Service
             int index = _passengerRepository.GetList().FindIndex(x => x.Id == id);
             if (index != -1)
             {
-                _passengerRepository.RemovePassenger(index);
+                _passengerRepository.RemovePassengerAsync(index);
             }
         }
     }

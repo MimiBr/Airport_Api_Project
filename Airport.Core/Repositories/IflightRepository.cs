@@ -10,8 +10,8 @@ namespace Airport.Core.Repositories
     public interface IflightRepository
     {
       public List<Flight> GetList();
-        public void PostFlight(Flight f);
-        public void UpdateFlight(int index, Flight f);
-        public void RemoveFlight(int index);
+        public void PostFlightAsync(Flight f);
+        public void UpdateFlightAsync(int index, Flight f);
+        public void RemoveFlightAsync(Flight flight);
     }
 }

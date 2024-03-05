@@ -19,26 +19,26 @@ namespace Aairport.Data.Repositories
         {
             return _context.Pilots.ToList();
         }
-        public void PostPilot(Pilot p)
+        public async void PostPilotAsync(Pilot p)
         {
             _context.Pilots.Add(p);
-            _context.SaveChanges();
+          await  _context.SaveChangesAsync();
 
 
         }
-        public void UpdatePilot(int index, Pilot p)
+        public async void UpdatePilotAsync(int index, Pilot p)
         {
             _context.Pilots.ToList()[index].Vettek = p.Vettek;
             _context.Pilots.ToList()[index].Name = p.Name;
             _context.Pilots.ToList()[index].NumWorker = p.NumWorker;
             _context.Pilots.ToList()[index].Company = p.Company;
-            _context.SaveChanges();
+          await  _context.SaveChangesAsync();
 
         }
-        public void RemovePilot(int index)
+        public async void RemovePilotAsync(int index)
         {
             _context.Pilots.Remove(_context.Pilots.ToList()[index]);
-            _context.SaveChanges();
+          await  _context.SaveChangesAsync();
 
         }
     }

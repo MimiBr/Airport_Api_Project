@@ -1,5 +1,7 @@
-﻿using Airport.Core.Services;
+﻿using Airport.Core.DTOs;
+using Airport.Core.Services;
 using Airport.Service;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.models;
 
@@ -11,62 +13,48 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class FlightsController : ControllerBase
     {
-        /*private static List<Flight> flightss = new List<Flight>()
-        {
-            new Flight{FlightsNum=100,Date=new DateTime(),LeavingTime=new DateTime(),ArrivalTime=new DateTime(),TerminalNum=50},
-            new Flight{FlightsNum=101,Date=new DateTime(),LeavingTime=new DateTime(),ArrivalTime=new DateTime(),TerminalNum=52}
-
-        };*/
-        //private static int CountFlight = 102;
-
+        private readonly IMapper _mapper;
         private readonly IflightService _flightService;
-        public FlightsController(IflightService flightService)
+        public FlightsController(IflightService flightService, IMapper mapper)
         {
             _flightService = flightService;
+            _mapper = mapper;
         }
 
         // GET: api/<FlightsController>
         [HttpGet]
-        public IEnumerable<Flight> Get()
+        public ActionResult<Flight> Get()
         {
-            return _flightService.GettAll();
+            var list = _flightService.GettAll();
+            var newList = _mapper.Map<IEnumerable<FlightDto>>(list);
+            return Ok(newList);
         }
 
         // GET api/<FlightsController>/5
         [HttpGet("{id}")]
-        public Flight Get(int id)
+        public ActionResult Get(int id)
         {
-            /*  Flight foundFlight = flightss.Find(x => x.Id ==Id);
-              if (foundFlight == null)
-              {
-                  return null;
-              }
-              return foundFlight;*/
-          return _flightService.GetById(id);
+            
+            var flight = _flightService.GetById(id);
+            var newFlight=_mapper.Map<FlightDto>(flight);
+          return Ok(newFlight);
         }
 
         // POST api/<FlightsController>
         [HttpPost]
-        public void Post([FromBody] FlightPostModel f)
+        public void Post([FromBody] FlightDto f)
         {
-           /* flightss.Add(new Flight {FlightsNum=CountFlight,Date=f.Date,LeavingTime=f.LeavingTime,ArrivalTime=f.ArrivalTime,TerminalNum=f.TerminalNum });
-            CountFlight++;
-            return flightss[flightss.Count - 1];*/
-           var  flightToAdd=new Flight { Date = f.Date,LeavingTime=f.LeavingTime,ArrivalTime=f.ArrivalTime,TerminalNum=f.TerminalNum};
-            _flightService.PostNewFlight(flightToAdd);
+           
+           var  flightToAdd=_mapper.Map<Flight>(f);
+            _flightService.PostNewFlightAsync(flightToAdd);
         }
 
         // PUT api/<FlightsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] FlightPostModel f)
+        public void Put(int id, [FromBody] FlightDto f)
         {
-            /* int index = flightss.FindIndex((Flight P) => { return f.FlightsNum == FlightsNum; });
-             flightss[index].Date= f.Date;
-             flightss[index].LeavingTime= f.LeavingTime;
-             flightss[index].ArrivalTime= f.ArrivalTime;
-             flightss[index].TerminalNum= f.TerminalNum;
-             return f;*/
-            var flightToAdd = new Flight { Date = f.Date, LeavingTime = f.LeavingTime, ArrivalTime = f.ArrivalTime, TerminalNum = f.TerminalNum };
+            
+            var flightToAdd = _mapper.Map<Flight>(f);
 
             _flightService.PutFlight(id, flightToAdd);
 
@@ -74,11 +62,10 @@ namespace WebApplication1.Controllers
 
         // DELETE api/<FlightsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-           /* int index = flightss.FindIndex((Flight f) => { return f.FlightsNum == FlightsNum; });
-            flightss.RemoveAt(index);*/
-           _flightService.DeleteFlight(Id);
+          
+           _flightService.DeleteFlight(id);
         }
     }
 }

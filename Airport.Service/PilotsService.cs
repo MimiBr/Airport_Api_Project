@@ -38,7 +38,7 @@ namespace Airport.Service
         }
         public void PostNewPilot(Pilot p)
         {
-            _ipilotRepository.PostPilot(p);
+            _ipilotRepository.PostPilotAsync(p);
             CountID++;
 
         }
@@ -47,7 +47,7 @@ namespace Airport.Service
             int index = _ipilotRepository.GetList().FindIndex(x => x.Id == id);
             if (index != -1)
             {
-                _ipilotRepository.UpdatePilot(index, p);
+                _ipilotRepository.UpdatePilotAsync(index, p);
 
            
             }
@@ -59,7 +59,7 @@ namespace Airport.Service
             int index = _ipilotRepository.GetList().FindIndex(x => x.Id == id);
             if (index != -1)
             {
-                _ipilotRepository.RemovePilot(index);
+                _ipilotRepository.RemovePilotAsync(index);
             }
         }
     }

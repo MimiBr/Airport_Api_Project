@@ -36,7 +36,7 @@ namespace Airport.Service
         }
         public void PostNewFlight(Flight f)
         {
-            _flightRepository.PostFlight(f);
+           _flightRepository.PostFlightAsync(f);
             CountFlight++;
 
         }
@@ -45,7 +45,7 @@ namespace Airport.Service
             int index =_flightRepository.GetList().FindIndex(x => x.Id == id);
             if (index != -1)
             {
-                _flightRepository.UpdateFlight(index, f);
+                _flightRepository.UpdateFlightAsync(index, f);
 
                
             }
@@ -53,10 +53,10 @@ namespace Airport.Service
         }
         public void DeleteFlight(int id)
         {
-            int index=_flightRepository.GetList().FindIndex(x => x.Id == id);
-            if(index != -1)
+            var index=GetById(id);
+            if(index != null)
             {
-                _flightRepository.RemoveFlight(index);
+                _flightRepository.RemoveFlightAsync(index);
             }
         }
             
