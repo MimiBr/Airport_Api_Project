@@ -9,9 +9,9 @@ namespace Airport.Core.Repositories
 {
     public interface IpassengerRepository
     {
-        List<Passenger> GetList();
-        public void PostPassengerAsync(Passenger p);
-        public void UpdatePassengerAsync(int index, Passenger p);
-        public void RemovePassengerAsync(int index);
+        public Task<IEnumerable<Passenger>> GetListAsync();
+        public  Task PostPassengerAsync(Passenger p);
+        public  Task UpdatePassengerAsync(int index, Passenger p);
+        public  Task RemovePassengerAsync(Passenger index);
     }
 }

@@ -23,43 +23,41 @@ namespace Airport.Service
             _passengerRepository = passengerRepository;
         }
 
-        public List<Passenger> GettAll()
+        public async Task<IEnumerable<Passenger>> GettAllAsync()
         {
-            return _passengerRepository.GetList();
+            return await _passengerRepository.GetListAsync();
         }
-        public Passenger GetById(int Id)
+        public async Task<Passenger> GetByIdAsync(int Id)
         {
-            Passenger foundPassenger = _passengerRepository.GetList().Find(x => x.Id == Id);
+            var list = await _passengerRepository.GetListAsync();
+            Passenger foundPassenger = list.First(t => t.Id == Id);
             if (foundPassenger == null)
             {
                 return null;
             }
             return foundPassenger;
         }
-        public void PostNewPassenger(Passenger p)
+        public async Task PostNewPassengerAsync(Passenger p)
         {
-            _passengerRepository.PostPassengerAsync(p);
+           await _passengerRepository.PostPassengerAsync(p);
             CoundId++;
 
         }
-        public void PutPassenger(int id, Passenger p)
+        public async Task PutPassengerAsync(int id, Passenger p)
         {
-            int index = _passengerRepository.GetList().FindIndex(x => x.Id == id);
-            if (index != -1)
-            {
-                _passengerRepository.UpdatePassengerAsync(index, p);
-
-              
-            }
+            await _passengerRepository.UpdatePassengerAsync(id, p);
 
         }
-        public void DeletePassenger(int id)
+
+    
+        public async Task DeletePassengerAsync(int Id)
         {
-            int index = _passengerRepository.GetList().FindIndex(x => x.Id == id);
-            if (index != -1)
-            {
-                _passengerRepository.RemovePassengerAsync(index);
-            }
+        var index = await GetByIdAsync(Id);
+        if (index != null)
+        {
+            await _passengerRepository.RemovePassengerAsync(index);
         }
     }
+    }
+
 }

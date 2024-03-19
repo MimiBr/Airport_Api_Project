@@ -24,9 +24,9 @@ namespace WebApplication1.Controllers
         }
         // GET: api/<PassengersController>
         [HttpGet]
-        public ActionResult<Passenger> Get()
+        public async Task<ActionResult<Passenger>> Get()
         {
-            var list=_passengerService.GettAll();
+            var list=await _passengerService.GettAllAsync();
             var PassengerList=_mapper.Map<IEnumerable<PassengerDto>>(list);
             return Ok(PassengerList);   
         }
